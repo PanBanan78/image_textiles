@@ -1,8 +1,17 @@
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('TestDB', 'SA', '%Pa55w0rd', {
-  host: 'localhost',
+
+
+const HOST = 'localhost'
+const DB = 'image_textiles'
+const USER = 'SA'
+const PASS = '%Pa55w0rd'
+
+
+
+const sequelize = new Sequelize(DB, USER, PASS, {
+  host: HOST,
   dialect: 'mssql'
-});
+})
 
 try {
     sequelize.authenticate();
