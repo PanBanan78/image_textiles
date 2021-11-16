@@ -1,5 +1,5 @@
 const express = require('express');
-const { customerType, customer, contact, delivery, order, pricing } = require('sequelize');
+const { customerType, customer, contact, delivery, order, pricing } = require('./init');
 const routes = require('./routes')
 
 const server = express();
