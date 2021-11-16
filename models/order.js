@@ -1,12 +1,5 @@
-import sequelize from "sequelize/types/lib/sequelize";
-import customerType from "./customerType";
-import customer from "./customer";
-import pricing from "./pricing";
-const { Sequelize, DataTypes } = require('sequelize');
-
-export default class order extends Sequelize.Model {}
-order.init(
-    {
+module.exports = function(sequelize, DataTypes){
+return sequelize.define('order', {
       id: {
         type: DataTypes.INTEGER,
         allowNull: false,
@@ -15,30 +8,30 @@ order.init(
       customerID: {
         type: DataTypes.STRING,
         allowNull: false,
-        references: {
-          // This is a reference to another model
-          model: customer,
+        // references: {
+        //   // This is a reference to another model
+        //   model: customer,
     
-          // This is the column name of the referenced model
-          key: 'id',
-        }
+        //   // This is the column name of the referenced model
+        //   key: 'id',
+        // }
       },
       typeID: {
         type: DataTypes.STRING,
         allowNull: false,
-        references: {
-          // This is a reference to another model
-          model: customerType,
+        // references: {
+        //   // This is a reference to another model
+        //   model: customerType,
     
-          // This is the column name of the referenced model
-          key: 'id',
-        }
+        //   // This is the column name of the referenced model
+        //   key: 'id',
+        // }
       },
       performDate: {
-        type: DataTypes.datetime,
+        type: DataTypes.DATE,
       },
       dispatchDate: {
-        type: DataTypes.datetime,
+        type: DataTypes.DATE,
       },
       accessories: {
         type: DataTypes.STRING,
@@ -67,13 +60,13 @@ order.init(
       pricingID: {
         type: DataTypes.STRING,
         allowNull: false,
-        references: {
-          // This is a reference to another model
-          model: pricing,
+        // references: {
+        //   // This is a reference to another model
+        //   model: pricing,
     
-          // This is the column name of the referenced model
-          key: 'id',
-        }
+        //   // This is the column name of the referenced model
+        //   key: 'id',
+        // }
       },
       orderTotal: {
         type: DataTypes.STRING,
@@ -85,8 +78,8 @@ order.init(
         type: DataTypes.STRING,
       }
     },
-    { sequelize, modelName: 'order' },
-  );
+    { modelName: 'order' },
+  )};
 
 /*
 CREATE TABLE order (

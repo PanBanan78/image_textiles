@@ -1,10 +1,5 @@
-import sequelize from "sequelize/types/lib/sequelize";
-import order from "./order";
-const { Sequelize, DataTypes } = require('sequelize');
-
-export default class pricing extends Sequelize.Model {}
-pricing.init(
-  {
+module.exports = function(sequelize, DataTypes){
+return sequelize.define('pricing', {
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -13,13 +8,13 @@ pricing.init(
     orderID: {
       type: DataTypes.STRING,
       allowNull: false,
-      references: {
-        // This is a reference to another model
-        model: order,
+      // references: {
+      //   // This is a reference to another model
+      //   model: order,
   
-        // This is the column name of the referenced model
-        key: 'id',
-      },
+      //   // This is the column name of the referenced model
+      //   key: 'id',
+      // },
     },
     priceOne: {
         type: DataTypes.STRING,
@@ -52,8 +47,8 @@ pricing.init(
         type: DataTypes.STRING,
     },
   },
-  { sequelize, modelName: 'pricing' },
-);
+  { modelName: 'pricing' },
+)};
 
 /*
 CREATE TABLE pricing (
