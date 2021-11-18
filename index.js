@@ -1,9 +1,12 @@
-const express = require('express');
-const { customerType, customer, contact, delivery, order, pricing } = require('./init');
+const express = require('express')
+const body_parser = require('body-parser')
+require('dotenv').config()
 const routes = require('./routes')
 
 const server = express();
-const port = 3000;
+const port = process.env.PORT || 3000
+
+server.use(express.json())
 
 server.use('', routes)
 

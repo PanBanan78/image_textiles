@@ -26,6 +26,4 @@ const Account = sequelize.define('Account', {
     }
 })
 
-// Account.sync({force:true})
-
 module.exports = Account
