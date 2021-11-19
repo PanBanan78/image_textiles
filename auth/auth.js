@@ -11,7 +11,6 @@ passport.use(
       },
       async (username, password, done) => {
         try {
-          console.log('!!!!!!!!!!!!!!!!!!!!!!!!!!', username)
           const user = await account.create({ name: username, password: password })
   
           return done(null, user)
@@ -24,14 +23,13 @@ passport.use(
 
   passport.use(
     'login',
-    new localStrategy(
+    new jsonStrategy(
       {
-        nameField: 'name',
-        passwordField: 'password'
+        passReqToCallback: false
       },
-      async (name, password, done) => {
+      async (username, password, done) => {
         try {
-          const user = await account.findOne({where: { name: name }})
+          const user = await account.findOne({where: { name: username }})
   
           if (!user) {
             return done(null, false, { status: 'Failed', message: 'User not found' })
@@ -50,3 +48,22 @@ passport.use(
       }
     )
   )
+
+const JWTstrategy = require('passport-jwt').Strategy;
+const ExtractJWT = require('passport-jwt').ExtractJwt;
+
+passport.use(
+  new JWTstrategy(
+    {
+      secretOrKey: 'TOP_SECRET',
+      jwtFromRequest: ExtractJWT.fromBodyField('secret_token')
+    },
+    async (token, done) => {
+      try {
+        return done(null, token.user);
+      } catch (error) {
+        done(error);
+      }
+    }
+  )
+);
