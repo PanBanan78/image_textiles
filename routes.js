@@ -26,4 +26,11 @@ router.get('/get_accounts', async (req, res) => {
     res.send(accounts)
 })
 
+router.get('/sync_tables', async (req, res) => {
+    // Syncs the tables by force
+    syncTables = require('./new_models/syncTables')
+
+    res.send({success: true, message: 'Synced the tables'})
+})
+
 module.exports = router

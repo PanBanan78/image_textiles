@@ -8,7 +8,7 @@ const pricingModel = require('./models/pricing');
 
 const sequelize = new Sequelize('TestDB', 'SA', '%Pa55w0rd', {
   host: 'localhost',
-  dialect: 'mssql'
+  dialect: 'mysql'
 });
 
 const customerType = customerTypeModel(sequelize, Sequelize)
