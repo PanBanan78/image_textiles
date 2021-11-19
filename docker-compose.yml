@@ -1,7 +1,7 @@
 # Creates a docker instance of the latest mysql and runs on port 3306
 
 services:
-  db:
+  mysql:
     image: mysql:latest
     restart: always
     environment:

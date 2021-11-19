@@ -4,7 +4,9 @@
   "description": "Order tracker for image textiles",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "docker-compose up -d && node index.js",
+    "mysql-start": "docker-compose up -d",
+    "mysql-stop": "docker-compose down"
   },
   "author": "Oskar Matacz, Edward Maxwell, Jack Walker, Drew Robson, Sebahtin Sebahtin",
   "license": "GPL-3.0",
