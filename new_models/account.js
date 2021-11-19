@@ -1,6 +1,6 @@
 const sequelize = require('../db')
 const DataTypes = require('sequelize')
-
+const bcrypt = require('bcrypt')
 
 const Account = sequelize.define('Account', {
     id: {
@@ -17,7 +17,7 @@ const Account = sequelize.define('Account', {
     
     type: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     },
 
     password: {
@@ -25,5 +25,22 @@ const Account = sequelize.define('Account', {
         allowNull: false
     }
 })
+
+Account.addHook('beforeCreate', async (user, options) => {
+  //HASH PASSWORD
+  hash = await bcrypt.hash(user.password, 10)
+  user.password = hash
+})
+
+Account.prototype.test = function(){
+  console.log('THIS WORKs')
+}
+
+Account.prototype.ValidatePassword = async function(plainText) {
+  const user = this;
+  const valid = await bcrypt.compare(plainText, this.password)
+
+  return valid
+} 
 
 module.exports = Account
