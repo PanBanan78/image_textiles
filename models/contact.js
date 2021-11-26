@@ -1,21 +1,48 @@
-module.exports = function(sequelize, DataTypes){
-return sequelize.define('contact', {
+const sequelize = require('../db')
+const DataTypes = require('sequelize')
+
+
+const Contact = sequelize.define('Contact', {
     id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        primaryKey: true
+      },
+
+    firstName: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-    customerID: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      // references: {
-      //   // This is a reference to another model
-      //   model: customer,
-  
-      //   // This is the column name of the referenced model
-      //   key: 'id',
-      // },
+
+    lastName: {
+        type: DataTypes.STRING,
+        allowNull: false
     },
-  },
-  { modelName: 'contact' },
-)};
+
+    position: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    address: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    phoneNumber: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    email: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+
+    responsibility: {
+        type: DataTypes.STRING,
+        allowNull: false
+    }
+})
+
+module.exports = Contact

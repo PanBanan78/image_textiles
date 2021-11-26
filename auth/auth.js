@@ -1,7 +1,7 @@
 const passport = require('passport')
 const localStrategy = require('passport-local').Strategy;
 const jsonStrategy = require('passport-json').Strategy;
-const account = require('../new_models/account')
+const account = require('../models/account')
 
 passport.use(
     'signup',

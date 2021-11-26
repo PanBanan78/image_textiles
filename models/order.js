@@ -1,21 +1,24 @@
-module.exports = function(sequelize, DataTypes){
-return sequelize.define('order', {
-      id: {
+const sequelize = require('../db')
+const DataTypes = require('sequelize')
+
+
+const Order = sequelize.define('Order', {
+    id: {
         type: DataTypes.INTEGER,
         allowNull: false,
         primaryKey: true
       },
-      customerID: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        // references: {
-        //   // This is a reference to another model
-        //   model: customer,
+      // customerID: {
+      //   type: DataTypes.STRING,
+      //   allowNull: false,
+      //   // references: {
+      //   //   // This is a reference to another model
+      //   //   model: customer,
     
-        //   // This is the column name of the referenced model
-        //   key: 'id',
-        // }
-      },
+      //   //   // This is the column name of the referenced model
+      //   //   key: 'id',
+      //   // }
+      // },
       typeID: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -27,23 +30,20 @@ return sequelize.define('order', {
         //   key: 'id',
         // }
       },
-      performDate: {
+      startDate: {
         type: DataTypes.DATE,
       },
       dispatchDate: {
         type: DataTypes.DATE,
       },
-      accessories: {
+      designName: {
         type: DataTypes.STRING,
       },
       fabricDetails: {
         type: DataTypes.STRING,
       },
-      quantity: {
-        type: DataTypes.STRING,
-      },
-      sizes: {
-        type: DataTypes.STRING,
+      quantityAndSizes: {
+        type: DataTypes.JSON,
       },
       setSize: {
         type: DataTypes.STRING,
@@ -73,36 +73,7 @@ return sequelize.define('order', {
       },
       notes: {
         type: DataTypes.STRING,
-      },
-      tag: {
-        type: DataTypes.STRING,
       }
-    },
-    { modelName: 'order' },
-  )};
+})
 
-/*
-CREATE TABLE order (
-    id int NOT NULL,
-    customerID int NOT NULL,
-    typeID int NULL,
-    performDate datetime NULL,
-    dispatchDate datetime NULL,
-    accessories varchar(255) NULL,
-    fabricDetails varchar(255) NULL,
-    quantity varchar(255) NULL,
-    sizes varchar(255) NULL,
-    setSize varchar(255) NULL,
-    additionalFabric varchar(255) NULL,
-    specialNotes varchar(255) NULL,
-    scrapFabric varchar(255) NULL,
-    pricingID int NULL,
-    orderTotal varchar(255) NULL,
-    notes varchar(255) NULL,
-    tag varchar(255) NULL,
-  )
-  ALTER TABLE
-    order
-  ADD
-    CONSTRAINT order_pkey PRIMARY KEY (id)
-*/
+module.exports = Order
