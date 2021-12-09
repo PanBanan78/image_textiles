@@ -1,8 +1,0 @@
-POST http://localhost:4000/register_account
-content-type: application/json
-
-{
-    "name": "test_acc",
-    "type": "admin",
-    "password": "12345"
-}

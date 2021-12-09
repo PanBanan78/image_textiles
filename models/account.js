@@ -1,4 +1,4 @@
-const sequelize = require('../db')
+const sequelize = require('../utils/db')
 const DataTypes = require('sequelize')
 const bcrypt = require('bcrypt')
 
@@ -27,6 +27,12 @@ const Account = sequelize.define('Account', {
 })
 
 Account.addHook('beforeCreate', async (user, options) => {
+  //HASH PASSWORD
+  hash = await bcrypt.hash(user.password, 10)
+  user.password = hash
+})
+
+Account.addHook('beforeSave', async (user, options) => {
   //HASH PASSWORD
   hash = await bcrypt.hash(user.password, 10)
   user.password = hash
