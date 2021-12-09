@@ -10,12 +10,12 @@ const Account = sequelize.define('Account', {
       autoIncrement: true
     },
   
-    name: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false
     },
     
-    type: {
+    role: {
         type: DataTypes.STRING,
         allowNull: true
     },

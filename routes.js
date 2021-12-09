@@ -1,8 +1,8 @@
 const express = require('express')
-const passport = require('passport')
-const jwt = require('jsonwebtoken')
 const router = express.Router()
 const Account = require('./models/account')
+
+const {userRegister, userLogin, userAuth, checkRole} = require('./utils/auth')
 
 
 
@@ -11,39 +11,26 @@ router.get('/', (req, res) => {
     // const foo = Account.create({name:'bigman_like_drew', type:'pleb', password:'1234'})
 })
 
-router.post('/register', passport.authenticate('signup', { session: false }), async (req, res, next) => {
-    res.json({message: 'Signup successful', user: req.user});
+router.post('/register', async (req, res) => {
+  await userRegister(req.body, res)
 })
 
-router.post('/login', async (req, res, next) => {
-    passport.authenticate(
-      'login',
-      async (err, user, info) => {
-        try {
-          if (err || !user) {
-            const error = new Error('An error occurred.');
+router.post('/login', async (req, res) => {
+  await userLogin(req.body, res)
+})
 
-            return next(error);
-          }
-
-          req.login(
-            user,
-            { session: false },
-            async (error) => {
-              if (error) return next(error);
-
-              const body = { _id: user.id, username: user.name };
-              const token = jwt.sign({ user: body }, 'TOP_SECRET');
-
-              return res.json({ token });
-            }
-          );
-        } catch (error) {
-          return next(error);
-        }
-      }
-    )(req, res, next);
+router.get('/protected', userAuth, async (req, res) => {
+  return res.status(200).json({
+    message: 'login protected route',
+    data: req.user
   })
+})
+
+router.get('/admin', userAuth, checkRole(['admin']), (req, res) => {
+  return res.json({
+    message: 'Admin only page'
+  })
+})
 
 router.get('/get_accounts', async (req, res) => {
     let accounts = await Account.findAll()
