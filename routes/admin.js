@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
-const Account = require('../models/account')
+const db = require('../db')
+const Account = db.account
 
 const {userAuth, checkRole} = require('../utils/auth')
 

@@ -1,12 +1,12 @@
-const sequelize = require('../utils/db')
 const DataTypes = require('sequelize')
 
-
-const Contact = sequelize.define('Contact', {
+module.exports = (sequelize, Sequelize) => {
+    const Contact = sequelize.define("contact", {
     id: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
       },
 
     firstName: {
@@ -43,6 +43,7 @@ const Contact = sequelize.define('Contact', {
         type: DataTypes.STRING,
         allowNull: false
     }
-})
+    });
 
-module.exports = Contact
+    return Contact
+}

@@ -1,8 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const Account = require('../models/account')
+const db = require('../db')
+const Account = db.account
+const Customer = db.customer
 
-const {userRegister, userLogin, userAuth, checkRole} = require('../utils/auth')
+
+const {userAuth, checkRole} = require('../utils/auth')
 
 
 
@@ -12,11 +15,20 @@ router.get('/', (req, res) => {
 })
 
 
-router.get('/sync_tables', async (req, res) => {
-    // Syncs the tables by force
-    syncTables = require('../models/syncTables')
+router.post('/create_customer', userAuth, async (req,res) => {
+    const newCustomer = await Customer.create({...req.body})
 
-    res.send({success: true, message: 'Synced the tables'})
+    if(newCustomer) {
+        return res.status(200).json({
+            message: "Created new customer",
+            success: true
+        })
+    } else {
+        return res.status(403).json({
+            message: "Could not create new customer",
+            success: false
+        })
+    }
 })
 
 module.exports = router

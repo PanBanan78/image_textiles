@@ -1,4 +1,5 @@
-const Account = require('../models/account')
+const db = require('../db')
+const Account = db.account
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const passport = require('passport')
@@ -26,6 +27,7 @@ const userRegister = async (userDetails, res) => {
     // Implement logger function (winston)
     return res.status(500).json({
       message: "Unable to create your account.",
+      err: err,
       success: false
     });
   }
@@ -39,7 +41,7 @@ const userLogin = async (loginDetails, res) => {
   // Check if user exists
   if(!user) {
     return res.status(403).json({
-      message: 'Invalid login details',
+      message: 'Invalid login details 1',
       success: false
     })
   }
@@ -47,7 +49,6 @@ const userLogin = async (loginDetails, res) => {
   // Check if password provided is correct
 
   const passwordMatch = await bcrypt.compare(password, user.password)
-
   if(passwordMatch) {
     // Create token and assign to user
 
@@ -73,7 +74,7 @@ const userLogin = async (loginDetails, res) => {
     })
   } else {
     return res.status(403).json({
-      message: 'Invalid login details',
+      message: 'Invalid login details 2',
       success: false
     })
   }
