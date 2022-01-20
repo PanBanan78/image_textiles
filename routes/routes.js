@@ -9,8 +9,11 @@ const {userAuth, checkRole} = require('../utils/auth')
 
 
 
-router.get('/', (req, res) => {
-    res.send('Hello world!')
+router.get('/', userAuth,(req, res) => {
+    return res.status(200).json({
+        success: true,
+        message: 'Test auth route working!'
+    })
     // const foo = Account.create({name:'bigman_like_drew', type:'pleb', password:'1234'})
 })
 
