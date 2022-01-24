@@ -41,7 +41,7 @@ module.exports = (sequelize, Sequelize) => {
 
     responsibility: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: true
     }
     });
 

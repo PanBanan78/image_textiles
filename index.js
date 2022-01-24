@@ -31,7 +31,7 @@ server.use('/api/auth', authRoutes)
 server.use('/api/admin', adminRoutes)
 
 const start = async () => {
-    await db.sequelize.sync({logging: false}).then( () => {
+    await db.sequelize.sync({force: false}).then( () => {
         console.log('DB force synced')
     });
     server.listen(port, () => {
